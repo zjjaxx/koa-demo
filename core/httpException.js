@@ -10,7 +10,13 @@ class ParameterException extends HttpException{
         super(msg,errorCode,400)
     }
 }
+class NotFundException extends HttpException{
+    constructor(msg="资源未找到",errorCode=10004){
+        super(msg,errorCode,404)
+    }
+}
 module.exports={
     HttpException,
-    ParameterException
+    ParameterException,
+    NotFundException
 }

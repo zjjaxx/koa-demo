@@ -1,0 +1,9 @@
+module.exports={
+    database:{
+        dbName:"island",
+        host:"localhost",
+        port:3306,
+        user:"zjj",
+        password:"123456jia"
+    }
+}
