@@ -8,8 +8,11 @@ User.init({
         primaryKey: true,//主键 唯一标识
         autoIncrement: true,//自增 会暴露用户编号 
     },
-    nickname: DataTypes.STRING,//默认长度64
-    email: DataTypes.STRING,
+    username: DataTypes.STRING,//默认长度64
+    email: {
+        type:DataTypes.STRING,
+        unique: true,//唯一
+    },
     password: DataTypes.STRING,
     openid: {
         type: DataTypes.STRING(64),
@@ -21,3 +24,5 @@ User.init({
     modelName: 'User', // 我们需要选择模型名称
     tableName:"user"//表名
 }) 
+
+module.exports=User

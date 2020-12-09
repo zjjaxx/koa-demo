@@ -6,8 +6,6 @@ const BodyParser=require("koa-bodyparser")
 const Exception=require("./middlewares/exception")
 global.env=process.env.NODE_ENV
 
-require("./app/models/user")
-
 app.use(Exception)
 app.use(BodyParser())
 
