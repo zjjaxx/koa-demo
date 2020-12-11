@@ -5,5 +5,10 @@ module.exports={
         port:3306,
         user:"zjj",
         password:"123456jia"
+    },
+    loginType:{
+        USER_MINI_PROGRAM:100,//小程序登入
+        USER_EMAIL:101,
+        USER_PHONE:102
     }
 }

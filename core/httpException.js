@@ -15,8 +15,17 @@ class NotFundException extends HttpException{
         super(msg,errorCode,404)
     }
 }
+class SuccessException extends HttpException{
+    constructor(msg="ok",errorCode=10008){
+        super(msg,errorCode,200)
+    }
+}
+function Success(){
+    throw new SuccessException()
+}
 module.exports={
     HttpException,
+    Success,
     ParameterException,
     NotFundException
 }

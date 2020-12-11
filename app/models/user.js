@@ -1,3 +1,4 @@
+const bcryptjs=require("bcryptjs")
 const db = require("../../core/db")
 const { Model, DataTypes } = require("sequelize")
 
@@ -13,7 +14,16 @@ User.init({
         type:DataTypes.STRING,
         unique: true,//唯一
     },
-    password: DataTypes.STRING,
+    password:{
+        type: DataTypes.STRING,
+        set(value){
+            console.log("trigger",value)
+            const salt=bcryptjs.genSaltSync(10)
+            //10 计算机生成salt 的成本 ，成本越高，安全性越高 ,salt 作用 即使密码相同，加密生成的值也不同
+            const psw_hash=bcryptjs.hashSync(value,salt)
+            this.setDataValue("password",psw_hash) 
+        }
+    },
     openid: {
         type: DataTypes.STRING(64),
         unique: true,//唯一
