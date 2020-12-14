@@ -12,7 +12,8 @@ const exception = async function (ctx, next) {
             ctx.body = {
                 msg: error.message,
                 errorCode: error.errorCode,
-                requestUrl: `${ctx.method} ${ctx.path}`
+                requestUrl: `${ctx.method} ${ctx.path}`,
+                result:error.result
             }
             ctx.status = error.status
         }
