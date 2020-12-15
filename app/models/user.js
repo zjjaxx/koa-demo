@@ -19,6 +19,14 @@ class User extends Model {
         }
         return user
     }
+    static async getOpenidUser(openid){
+        const user=await User.findOne({
+            where:{
+                openid
+            }
+        })
+        return user
+    }
 }
 User.init({
     id: {

@@ -21,6 +21,11 @@ class AuthFailedException extends HttpException{
         super(msg,errorCode,401)
     }
 }
+class ForbidenException extends HttpException{
+    constructor(msg="禁止访问",errorCode=10403){
+        super(msg,errorCode,403)
+    }
+}
 class SuccessException extends HttpException{
     constructor(result,msg="ok",errorCode=10200){
         super(msg,errorCode,200,result)
@@ -31,6 +36,7 @@ function Success(result=""){
 }
 module.exports={
     HttpException,
+    ForbidenException,
     Success,
     AuthFailedException,
     ParameterException,

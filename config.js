@@ -13,6 +13,11 @@ module.exports={
     },
     security:{
         secretKey:"mH5D6AUSaqBs5tiv",
-        expiresIn:60*60//过期时间
+        expiresIn:"2 days"//过期时间
+    },
+    mini_program:{
+        AppSecret: "0a07b15f52e97108efe6e43c6dbe77ad",
+        AppId:"wx5a3636c9ef956db1",
+        loginUrl:"https://api.weixin.qq.com/sns/jscode2session"
     }
 }

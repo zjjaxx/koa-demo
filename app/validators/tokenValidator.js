@@ -7,7 +7,7 @@ const { loginType } = require("../../config")
 const tokenSchema = Joi.object({
     account: Joi.string()
         .min(3)
-        .max(30)
+        .max(100)
         .required()
         .messages({
             "string.base": "账号必须为字符串",

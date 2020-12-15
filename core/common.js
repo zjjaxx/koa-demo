@@ -1,6 +1,6 @@
 const { ParameterException } = require("./httpException");
 const jwt = require("jsonwebtoken")
-const { security: { secretKey, expiresIn } } = require("../config")
+const { security: { secretKey,expiresIn } } = require("../config")
 module.exports = {
     validatorCommon: async (params, schema) => {
         let value = null
@@ -15,6 +15,7 @@ module.exports = {
         }
         return value
     },
+    //scope 权限划分，普通用户8 管理员16
     generateToken: (uid, scope) => {
         return jwt.sign({
             uid,
