@@ -6,7 +6,6 @@ class WXManager {
         let res = await axios.get(loginUrl,
             { params: { appid: AppId, secret: AppSecret, js_code: code, grant_type: "authorization_code" } }
         )
-        console.log("res",res.data.errcode)
         if(res.status!==200){
             throw new AuthFailedException("openid 获取失败")
         }

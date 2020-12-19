@@ -13,7 +13,7 @@ router.post("/register",async(ctx,next)=>{
     const params=ctx.request.body
     let  value=await validatorCommon(params,userSchema)
     await User.create(value)
-    Success()
+    Success("注册成功")
 })
 
 

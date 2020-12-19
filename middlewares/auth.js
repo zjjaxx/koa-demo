@@ -34,5 +34,17 @@ class Auth{
         }
      
     }
+    tokenIsValid(token){
+        let decode=null
+        try {
+            decode=jwt.verify(token,config.security.secretKey)
+        } catch (error) {
+            if(error.name="TokenExpiredError"){
+                throw new ForbidenException("token已过期")
+            }
+            throw new ForbidenException("token不合法")
+        }
+        return decode
+    }
 }
 module.exports=Auth

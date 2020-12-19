@@ -19,5 +19,10 @@ module.exports={
         AppSecret: "0a07b15f52e97108efe6e43c6dbe77ad",
         AppId:"wx5a3636c9ef956db1",
         loginUrl:"https://api.weixin.qq.com/sns/jscode2session"
+    },
+    issueType:{
+        movieType:1,
+        musicType:2,
+        sentenceType:3
     }
 }

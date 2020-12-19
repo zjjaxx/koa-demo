@@ -1,5 +1,6 @@
 const Router = require("koa-router")
 const tokenSchema = require("../../validators/tokenValidator")
+const tokenValidSchema=require("../../validators/tokenVaildValidator")
 const { validatorCommon, generateToken } = require("../../../core/common")
 const { Success } = require("../../../core/httpException")
 const { loginType } = require("../../../config")
@@ -25,11 +26,19 @@ router.post("/login", async (ctx, next) => {
     }
     Success({token})
 })
+router.post("/isValid",async (ctx,next)=>{
+    const params=ctx.request.body
+    let value=await validatorCommon(params,tokenValidSchema)
+    let result=new Auth().tokenIsValid(value.token)
+    if(result){
+        Success("token有效")
+    }
+})
 const emailLoginVerify=async (account,password)=>{
     let user=await User.verifyEmailPassword(account,password)
     return generateToken(user.id,Auth.USER)
 }
-const miniLoginVerify=async (code)=>{
+const miniLoginVerify=async (code)=>{ 
     let openid= await WXManager.codeToToken(code)
     let user=await User.getOpenidUser(openid)
     if(!user){
