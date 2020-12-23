@@ -15,7 +15,7 @@ const sequelize = new Sequelize(dbName, user, password, {
     timezone: "+08:00",//设置时区
     define: {//全局定义
         timestamps: true,
-    }
+    } 
 })
 sequelize.sync({ force: false })
 module.exports = sequelize

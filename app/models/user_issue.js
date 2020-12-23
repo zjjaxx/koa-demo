@@ -1,7 +1,8 @@
 const {Model,DataTypes}=require("sequelize")
-const db=require("../../core/db")
+const sequelize=require("../../core/db")
+
 class UserIssue extends Model{
-    
+ 
 }
 
 UserIssue.init({
@@ -9,13 +10,9 @@ UserIssue.init({
         type:DataTypes.INTEGER,
         primaryKey:true,
     },
-    userId:DataTypes.INTEGER,
-    isFavor:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:false
-    }
+    userId:DataTypes.INTEGER
 },{
-    sequelize:db,
+    sequelize:sequelize,
     modelName:"UserIssue",
     tableName:"userIssue"
 })

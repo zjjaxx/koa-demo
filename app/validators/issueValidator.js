@@ -26,6 +26,7 @@ const issueSchame=Joi.object({
         .messages({
             "any.required": "标题必填"
         }),
+    name:Joi.string()
 })
 
 module.exports=issueSchame
