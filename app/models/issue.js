@@ -1,5 +1,5 @@
 const sequelize = require("../../core/db")
-const { Model, DataTypes } = require("sequelize")
+const { Model, DataTypes,Op } = require("sequelize")
 const Auth = require("../../middlewares/auth")
 const { issueType } = require("../../config")
 const Movie = require("../models/movie")
@@ -7,6 +7,7 @@ const Music = require("../models/music")
 const Sentence = require("../models/sentence")
 const { Success,HttpException } = require("../../core/httpException")
 const UserIssue = require("../models/user_issue")
+
 let lastIssueId=0
 class Issue extends Model{
     static async addIssue(value){
@@ -112,6 +113,58 @@ class Issue extends Model{
         let lastestIssue = await Issue.findOne({where:{No:value.currentIssueId-1}})
         let result= await Issue.issueDetail(ctx,lastestIssue)
         return result
+    }
+    static async getIssueTypeDetail(key,value){
+        let issueDetailList = null
+        let idList=value.map(item=>item.issueId)
+        switch (key) {
+            case issueType.movieType:
+                 //使用In查询数据库，防止查询次数不可控
+                issueDetailList = await Movie.findAll({ where: { issueId: {[Op.in]:idList} } })
+                break
+            case issueType.musicType:
+                issueDetailList = await Music.findAll({ where: { issueId: {[Op.in]:idList}} })
+                break
+            case issueType.sentenceType:
+                issueDetailList = await Sentence.findAll({ where: { issueId:{[Op.in]:idList}} })
+                break
+        }
+        return issueDetailList.map(issue=>{
+            let valueItem= value.map(item=>item.issueId==issue.issueId)
+            return {
+                issueId: issue.issueId,
+                type: issue.type,
+                love: valueItem.love,
+                img: issue.img,
+                desc: issue.desc,
+                title: issue.title,
+                musicUrl: issue.musicUrl,
+                isFavor:true,
+                hasPreIssue:issue.issueId>1,
+                hasNextIssue:issue.issueId<lastIssueId
+            }
+        })
+
+    }
+    static async getFavorList(ctx){
+       let uid= ctx.auth.uid
+       let userIssueList=await UserIssue.findAll({where:{userId:uid}})
+       let idList=userIssueList.map(item=>item.issueId)
+       let issueList=await Issue.findAll({where:{No:{[Op.in]:idList}}})
+       let issueTotal={
+        [issueType.movieType]:[],
+        [issueType.musicType]:[],
+        [issueType.sentenceType]:[]
+       }
+       issueList.forEach(issue=>{
+            issueTotal[issue.type].push({issueId:issue.No,love:issue.love})
+       })
+       let result=[]
+       for(let key in issueTotal){
+          let detail=await Issue.getIssueTypeDetail(parseInt(key),issueTotal[key])
+          result=[...result,...detail]
+       }
+       return result
     }
 }
 Issue.init({

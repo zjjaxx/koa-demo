@@ -39,4 +39,8 @@ router.get("/getPreIssue",async (ctx,next)=>{
     let preIssue = await Issue.getPreIssue(ctx,value)
     Success(preIssue)
 })
+router.get("/getFavorList",new Auth().authentication(),async (ctx,next)=>{
+     let favorList=await Issue.getFavorList(ctx)
+     Success(favorList)
+})
 module.exports = router
