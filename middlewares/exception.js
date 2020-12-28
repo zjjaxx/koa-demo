@@ -5,6 +5,7 @@ const exception = async function (ctx, next) {
         await next()
     } catch (error) {
         const isHttpException=error instanceof HttpException
+        //如果是开发环境并且是未知异常则抛出异常
         if (global.env == "dev"&&!isHttpException) {
             throw error
         }

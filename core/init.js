@@ -4,8 +4,8 @@ class InitManager{
     static initCore(app){
         InitManager.app=app
     }
-    static initUseRouters(router){
-        requireDirectory(module,router,{visit:module=>{
+    static initUseRouters(routerPath){
+        requireDirectory(module,routerPath,{visit:module=>{
             if(module instanceof Router){
                 InitManager.app.use(module.routes())
             }

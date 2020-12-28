@@ -1,5 +1,5 @@
 const db=require("../../core/db")
-const {Model,DataTypes}=require("sequelize")
+const {Model}=require("sequelize")
 const baseIssue=require("./baseIssue")
 class Movie extends Model{}
 

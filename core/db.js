@@ -17,5 +17,6 @@ const sequelize = new Sequelize(dbName, user, password, {
         timestamps: true,
     } 
 })
+//调用一个异步函数(返回一个Promise)model.sync(options)
 sequelize.sync({ force: false })
 module.exports = sequelize
